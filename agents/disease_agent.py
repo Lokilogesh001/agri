@@ -17,7 +17,6 @@ def _infer_severity(predicted_class: str) -> str:
     label = (predicted_class or "").strip().lower()
     if not label:
         return "low"
-
     disease_name = label.split("___", 1)[1] if "___" in label else label
     if disease_name == "healthy":
         return "low"

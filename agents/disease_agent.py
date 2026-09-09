@@ -9,14 +9,20 @@ _HIGH_SEVERITY_KEYWORDS = ("blight", "rot", "wilt", "rust")
 
 
 def _infer_severity(predicted_class: str) -> str:
+    """Infer provisional severity from the predicted class name.
+
+    PlantVillage does not provide reliable severity labels, so this is a
+    conservative prototype heuristic rather than a learned severity model.
+    """
     label = (predicted_class or "").strip().lower()
-    # PlantVillage labels are prefixed with the crop name, e.g.
-    # "Apple___healthy". Treat any class whose disease component is
-    # "healthy" as low severity.
-    disease_component = label.split("___", 1)[-1] if "___" in label else label
-    if disease_component == "healthy":
+    if not label:
         return "low"
-    return "high" if any(k in disease_component for k in _HIGH_SEVERITY_KEYWORDS) else "moderate"
+
+    # PlantVillage labels commonly use: Crop___healthy / Crop___Disease.
+    disease_name = label.split("___", 1)[1] if "___" in label else label
+    if disease_name == "healthy":
+        return "low"
+    return "high" if any(k in disease_name for k in _HIGH_SEVERITY_KEYWORDS) else "moderate"
 
 
 @lru_cache(maxsize=1)

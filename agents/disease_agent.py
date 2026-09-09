@@ -18,7 +18,6 @@ def _infer_severity(predicted_class: str) -> str:
     if not label:
         return "low"
 
-    # PlantVillage labels commonly use: Crop___healthy / Crop___Disease.
     disease_name = label.split("___", 1)[1] if "___" in label else label
     if disease_name == "healthy":
         return "low"

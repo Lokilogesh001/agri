@@ -9,11 +9,7 @@ _HIGH_SEVERITY_KEYWORDS = ("blight", "rot", "wilt", "rust")
 
 
 def _infer_severity(predicted_class: str) -> str:
-    """Infer provisional severity from the predicted class name.
-
-    PlantVillage does not provide reliable severity labels, so this is a
-    conservative prototype heuristic rather than a learned severity model.
-    """
+    """Infer provisional severity from the predicted class name."""
     label = (predicted_class or "").strip().lower()
     if not label:
         return "low"
@@ -43,9 +39,4 @@ def run(image_path: str | None = None, model=None, override: dict | None = None)
     result = override if override is not None else classify(image_path, model=model)
     predicted_class = result["predicted_class"]
     confidence = float(result["confidence"])
-    return DiseaseResult(
-        predicted_class=predicted_class,
-        confidence=round(confidence, 4),
-        severity=_infer_severity(predicted_class),
-        actionable=confidence >= LOW_CONFIDENCE_GATE,
-    )
+    return DiseaseResult(predicted_class=predicted_class, confidence=round(confidence,4), severity=_infer_severity(predicted_class), actionable=confidence >= LOW_CONFIDENCE_GATE)

@@ -1,0 +1,17 @@
+{
+  "artifact": "best.pt",
+  "architecture": "MobileNetV3-Large",
+  "num_classes": 38,
+  "best_epoch": 9,
+  "best_validation_macro_f1": 0.9939142878678112,
+  "test_accuracy": 0.9923428891586517,
+  "test_macro_f1": 0.9912317161218637,
+  "test_weighted_f1": 0.9923467822350633,
+  "confidence_threshold": 0.60,
+  "training_dataset": "PlantVillage official color split",
+  "official_train_images": 43596,
+  "official_test_images": 10709,
+  "generated_train_images": 34812,
+  "generated_validation_images": 8784,
+  "note": "The trained binary is 17,198,293 bytes. It should be committed with Git LFS from a local Git checkout. This metadata file records the verified checkpoint configuration and evaluation results."
+}
